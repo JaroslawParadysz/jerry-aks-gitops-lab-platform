@@ -11,12 +11,10 @@ spec:
       values: |
         grafana:
           service:
-            type: NodePort
-            nodePort: 31006
+            type: ClusterIP
         prometheus:
           service:
-            type: NodePort
-            nodePort: 31005
+            type: ClusterIP
     chart: kube-prometheus-stack
   destination:
     server: https://kubernetes.default.svc

@@ -43,6 +43,16 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 
 Default username is `admin`.
 
+## Bootstrapping the Platform
+
+After installing ArgoCD, you need to bootstrap the platform by applying the root application:
+
+```bash
+kubectl apply -f bootstrap/root-app.yaml
+```
+
+This root application will manage all other applications in the repository using the app of apps pattern.
+
 ## App of Apps Pattern
 
 This repository uses the ArgoCD "app of apps" pattern, where a parent Application manages all child applications.
