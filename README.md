@@ -37,6 +37,12 @@ Then access the UI at: https://localhost:8080
 
 Retrieve the initial admin password:
 
+**PowerShell:**
+```powershell
+[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String((kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}")))
+```
+
+**Linux/macOS:**
 ```bash
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 ```

@@ -1,11 +1,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: 'kube-prometheus-stack'
+  name: kube-prometheus-stack
+  namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://prometheus-community.github.io/helm-charts
+    chart: kube-prometheus-stack
     targetRevision: 73.2.0
     helm:
       values: |
@@ -15,14 +17,13 @@ spec:
         prometheus:
           service:
             type: ClusterIP
-    chart: kube-prometheus-stack
   destination:
     server: https://kubernetes.default.svc
-    namespace: kube-prometheus-stack
+    namespace: monitoring
   syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
-    automated:
-      prune: false
-      selfHeal: false
