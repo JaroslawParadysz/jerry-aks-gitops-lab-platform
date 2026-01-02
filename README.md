@@ -42,3 +42,7 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 ```
 
 Default username is `admin`.
+
+## App of Apps Pattern
+
+This repository uses the ArgoCD "app of apps" pattern, where a parent Application manages all child applications.

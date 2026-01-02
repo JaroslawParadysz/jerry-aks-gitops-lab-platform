@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: 'kube-prometheus-stack'
+spec:
+  project: default
+  source:
+    repoURL: https://prometheus-community.github.io/helm-charts
+    targetRevision: 73.2.0
+    helm:
+      values: |
+        grafana:
+          service:
+            type: NodePort
+            nodePort: 31006
+        prometheus:
+          service:
+            type: NodePort
+            nodePort: 31005
+    chart: kube-prometheus-stack
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kube-prometheus-stack
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+    automated:
+      prune: false
+      selfHeal: false
