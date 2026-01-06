@@ -23,6 +23,26 @@ This guide describes the manual steps required to install ArgoCD in your Kuberne
    kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
    ```
 
+3. **Configure ArgoCD Root Path (for subpath ingress routing):**
+
+   To expose ArgoCD under a subpath (e.g., `/argocd`), configure the root path:
+
+   ```bash
+   kubectl patch configmap argocd-cmd-params-cm -n argocd --type merge -p '{"data":{"server.rootpath":"/argocd"}}'
+   ```
+
+4. **Restart ArgoCD Server to apply the configuration:**
+
+   ```bash
+   kubectl rollout restart deployment argocd-server -n argocd
+   ```
+
+   Wait for the deployment to complete:
+
+   ```bash
+   kubectl rollout status deployment argocd-server -n argocd
+   ```
+
 ### Accessing ArgoCD UI
 
 To access the ArgoCD UI, you can port-forward the ArgoCD server:
