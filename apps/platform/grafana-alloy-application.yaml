@@ -10,9 +10,11 @@ spec:
     targetRevision: 1.0.1
     helm:
       valuesObject:
-        affinity: {}
-        tolerations:
-          - operator: Exists
+        controller:
+          type: daemonset
+          nodeSelector: {}
+          tolerations:
+            - operator: Exists
         alloy:
           extraPorts:
             - name: trace-http
