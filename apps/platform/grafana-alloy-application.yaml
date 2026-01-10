@@ -11,6 +11,9 @@ spec:
     helm:
       valuesObject:
         alloy:
+          affinity: {}
+          tolerations:
+            - operator: Exists
           extraPorts:
             - name: trace-http
               port: 4318
