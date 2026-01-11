@@ -14,6 +14,14 @@ spec:
         grafana:
           service:
             type: ClusterIP
+          additionalDataSources:
+            - name: Loki
+              type: loki
+              url: http://loki-gateway
+              access: proxy
+              isDefault: false
+              jsonData:
+                maxLines: 1000
         prometheus:
           service:
             type: ClusterIP
